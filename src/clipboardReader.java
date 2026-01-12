@@ -5,24 +5,30 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
-public class clipBoard {
+public class clipboardReader {
+    private Clipboard clipboard;
 
-    clipBoard() {
+    clipboardReader(Clipboard clipboard) {
 
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        //System.out.println("Clipboard Connected");
+        this.clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    }
+
+    public String readText(){
         Transferable data = clipboard.getContents(null);
 
         if (data != null && data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             try {
 
-                String text = (String) data.getTransferData(DataFlavor.stringFlavor);
-                System.out.println(text);
+                return   (String) data.getTransferData(DataFlavor.stringFlavor);
+
             }
             catch (UnsupportedFlavorException | IOException e ) {
                 e.printStackTrace();
             }
+
         }
+        return  null;
     }
+
 }
 
