@@ -6,9 +6,9 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 public class clipboardReader {
-    private Clipboard clipboard;
+    private final Clipboard clipboard;
 
-    clipboardReader(Clipboard clipboard) {
+    clipboardReader() {
 
         this.clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     }
