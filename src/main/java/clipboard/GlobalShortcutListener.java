@@ -29,6 +29,11 @@ public class GlobalShortcutListener implements NativeKeyListener {
         if (ctrl && shift && e.getKeyCode() == NativeKeyEvent.VC_C) {
             handleCopy();
         }
+        // Ctrl + Shift + V
+        if (ctrl && shift && e.getKeyCode() == NativeKeyEvent.VC_V) {
+            handlePaste();
+        }
+
     }
 
     private void handleCopy() {
@@ -42,8 +47,14 @@ public class GlobalShortcutListener implements NativeKeyListener {
             System.out.println("Copied via shortcut: " + text);
         }
     }
+    public void handlePaste(){
+        String text= history.getNext();
+        if(text == null){
+            return;
+        }
+        clipboardWriter.write(text);
+    }
 
-    // REQUIRED by interface
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {}
 
