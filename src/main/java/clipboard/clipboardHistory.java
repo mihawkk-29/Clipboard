@@ -6,39 +6,48 @@ import java.util.Iterator;
 
 public class clipboardHistory {
 
-    private final int maxsize;
-    private final Deque<String> dq = new ArrayDeque<>();
+    private final int maxSize;
+    private final Deque<String> deque = new ArrayDeque<>();
     private int cursor = 0;
 
-    public clipboardHistory(int maxsize) {
-        this.maxsize = maxsize;
+    public clipboardHistory(int maxSize) {
+        this.maxSize = maxSize;
     }
 
     public synchronized void add(String text) {
-        if (!dq.isEmpty() && dq.peekFirst().equals(text)) {
+        if (text == null || text.isBlank()) {
             return;
         }
 
-        dq.addFirst(text);
+        if (!deque.isEmpty() && deque.peekFirst().equals(text)) {
+            return;
+        }
 
-        if (dq.size() > maxsize) {
-            dq.removeLast();
+        deque.addFirst(text);
+
+        if (deque.size() > maxSize) {
+            deque.removeLast();
         }
 
         cursor = 0;
     }
+    public synchronized void clear() {
+        deque.clear();
+        cursor = 0;
+        System.out.println("CLIPBOARD HISTORY CLEARED");
+    }
 
 
     public synchronized String getNext() {
-        if (dq.isEmpty()) {
+        if (deque.isEmpty()) {
             return null;
         }
 
-        if (cursor >= dq.size()) {
-            return null;
+        if (cursor >= deque.size()) {
+            cursor = 0;
         }
 
-        Iterator<String> it = dq.iterator();
+        Iterator<String> it = deque.iterator();
         for (int i = 0; i < cursor; i++) {
             it.next();
         }
@@ -47,6 +56,4 @@ public class clipboardHistory {
         cursor++;
         return result;
     }
-
-
 }
