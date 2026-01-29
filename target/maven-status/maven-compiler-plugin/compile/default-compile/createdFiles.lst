@@ -1,0 +1,6 @@
+clipboard/GlobalShortcutListener.class
+clipboard/Main.class
+clipboard/clipboardHistory.class
+clipboard/clipboardWatcher.class
+clipboard/clipboardWriter.class
+clipboard/clipboardReader.class
